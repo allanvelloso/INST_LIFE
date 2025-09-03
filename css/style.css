@@ -777,10 +777,11 @@ button {
     line-height: 1.1;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     position: relative;
-    background: linear-gradient(45deg, var(--text-white), var(--accent-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-white); /* Cor sólida branca substituindo o gradiente */
+    /* Removido: background: linear-gradient(45deg, var(--text-white), var(--accent-color)); */
+    /* Removido: -webkit-background-clip: text; */
+    /* Removido: -webkit-text-fill-color: transparent; */
+    /* Removido: background-clip: text; */
     animation: titleGlow 3s ease-in-out infinite alternate;
 }
 
