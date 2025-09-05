@@ -934,5 +934,219 @@ const HeaderUtils = {
 window.Utils = Utils;
 window.HeaderUtils = HeaderUtils;
 
+/* ===== FUNCIONALIDADES DO SLIDER DE IMAGENS ===== */
+// Objeto para controlar os sliders
+const SliderManager = {
+    sliders: new Map(),
+    
+    // Inicializar todos os sliders
+    init: function() {
+        const sliders = document.querySelectorAll('.image-slider');
+        sliders.forEach(slider => {
+            this.createSlider(slider);
+        });
+    },
+    
+    // Criar um slider específico
+    createSlider: function(sliderElement) {
+        const sliderId = sliderElement.id;
+        const images = sliderElement.querySelectorAll('.slider-image');
+        const dots = sliderElement.querySelectorAll('.dot');
+        
+        if (images.length === 0) return;
+        
+        // Estado do slider
+        const state = {
+            currentIndex: 0,
+            totalImages: images.length,
+            isAnimating: false,
+            autoPlayInterval: null,
+            autoPlayDelay: 5000 // 5 segundos
+        };
+        
+        // Salvar estado
+        this.sliders.set(sliderId, state);
+        
+        // Configurar eventos
+        this.setupSliderEvents(sliderElement, sliderId);
+        
+        // Iniciar autoplay
+        this.startAutoPlay(sliderId);
+    },
+    
+    // Configurar eventos do slider
+    setupSliderEvents: function(sliderElement, sliderId) {
+        const prevBtn = sliderElement.querySelector('.slider-btn.prev');
+        const nextBtn = sliderElement.querySelector('.slider-btn.next');
+        const dots = sliderElement.querySelectorAll('.dot');
+        
+        // Botões de navegação
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => this.changeSlide(sliderId, -1));
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => this.changeSlide(sliderId, 1));
+        }
+        
+        // Dots de navegação
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => this.goToSlide(sliderId, index));
+        });
+        
+        // Pausar autoplay no hover
+        sliderElement.addEventListener('mouseenter', () => this.pauseAutoPlay(sliderId));
+        sliderElement.addEventListener('mouseleave', () => this.startAutoPlay(sliderId));
+        
+        // Suporte a teclado
+        sliderElement.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                this.changeSlide(sliderId, -1);
+            } else if (e.key === 'ArrowRight') {
+                this.changeSlide(sliderId, 1);
+            }
+        });
+        
+        // Touch/swipe support
+        this.setupTouchEvents(sliderElement, sliderId);
+    },
+    
+    // Configurar eventos de touch
+    setupTouchEvents: function(sliderElement, sliderId) {
+        let startX = 0;
+        let startY = 0;
+        let isDragging = false;
+        
+        sliderElement.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            isDragging = true;
+            this.pauseAutoPlay(sliderId);
+        });
+        
+        sliderElement.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            
+            const currentX = e.touches[0].clientX;
+            const currentY = e.touches[0].clientY;
+            const diffX = startX - currentX;
+            const diffY = startY - currentY;
+            
+            // Se o movimento horizontal for maior que o vertical, prevenir scroll
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                e.preventDefault();
+            }
+        });
+        
+        sliderElement.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            
+            const endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+            const threshold = 50; // Mínimo de pixels para considerar swipe
+            
+            if (Math.abs(diffX) > threshold) {
+                if (diffX > 0) {
+                    // Swipe para esquerda - próxima imagem
+                    this.changeSlide(sliderId, 1);
+                } else {
+                    // Swipe para direita - imagem anterior
+                    this.changeSlide(sliderId, -1);
+                }
+            }
+            
+            isDragging = false;
+            this.startAutoPlay(sliderId);
+        });
+    },
+    
+    // Mudar slide
+    changeSlide: function(sliderId, direction) {
+        const state = this.sliders.get(sliderId);
+        if (!state || state.isAnimating) return;
+        
+        let newIndex = state.currentIndex + direction;
+        
+        // Loop infinito
+        if (newIndex >= state.totalImages) {
+            newIndex = 0;
+        } else if (newIndex < 0) {
+            newIndex = state.totalImages - 1;
+        }
+        
+        this.goToSlide(sliderId, newIndex);
+    },
+    
+    // Ir para slide específico
+    goToSlide: function(sliderId, index) {
+        const state = this.sliders.get(sliderId);
+        if (!state || state.isAnimating) return;
+        
+        const sliderElement = document.getElementById(sliderId);
+        if (!sliderElement) return;
+        
+        const images = sliderElement.querySelectorAll('.slider-image');
+        const dots = sliderElement.querySelectorAll('.dot');
+        
+        if (index < 0 || index >= state.totalImages) return;
+        
+        state.isAnimating = true;
+        
+        // Remover classe active da imagem atual
+        images[state.currentIndex].classList.remove('active');
+        dots[state.currentIndex].classList.remove('active');
+        
+        // Adicionar classe active na nova imagem
+        images[index].classList.add('active');
+        dots[index].classList.add('active');
+        
+        // Atualizar estado
+        state.currentIndex = index;
+        
+        // Resetar animação após transição
+        setTimeout(() => {
+            state.isAnimating = false;
+        }, 300);
+    },
+    
+    // Iniciar autoplay
+    startAutoPlay: function(sliderId) {
+        const state = this.sliders.get(sliderId);
+        if (!state) return;
+        
+        this.pauseAutoPlay(sliderId);
+        
+        state.autoPlayInterval = setInterval(() => {
+            this.changeSlide(sliderId, 1);
+        }, state.autoPlayDelay);
+    },
+    
+    // Pausar autoplay
+    pauseAutoPlay: function(sliderId) {
+        const state = this.sliders.get(sliderId);
+        if (!state || !state.autoPlayInterval) return;
+        
+        clearInterval(state.autoPlayInterval);
+        state.autoPlayInterval = null;
+    }
+};
+
+// Funções globais para compatibilidade com HTML
+function changeSlide(sliderId, direction) {
+    SliderManager.changeSlide(sliderId, direction);
+}
+
+function currentSlide(sliderId, slideNumber) {
+    SliderManager.goToSlide(sliderId, slideNumber - 1);
+}
+
+// Inicializar sliders quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', function() {
+    // Aguardar um pouco para garantir que todos os elementos estejam renderizados
+    setTimeout(() => {
+        SliderManager.init();
+    }, 100);
+});
+
 console.log('✅ Script.js carregado com sucesso!');
 

@@ -84,17 +84,47 @@
                 <div class="about-content">
                     <div class="about-text">
                         <h2 class="section-title">Quem Somos</h2>
-                        <p class="about-description">
-                            O Instituto Life é uma organização sem fins lucrativos fundada com o objetivo 
-                            de oferecer um tempo de resgate através do esporte, cultura e educação. Atuamos 
-                            na comunidade carente do Clube dos Engenheiros, em Araruama - RJ, oferecendo 
-                            oportunidades de desenvolvimento pessoal e social para crianças e jovens.
-                        </p>
-                        <p class="about-description">
-                            Nossa missão é promover a inclusão social, desenvolver talentos e formar cidadãos 
-                            conscientes de seus direitos e deveres, contribuindo para a construção de uma 
-                            sociedade mais justa e igualitária na região dos Lagos.
-                        </p>
+                        <div class="about-intro">
+                            <h3 class="about-subtitle">Sobre o Instituto Life</h3>
+                            <p class="about-description">
+                                O Instituto Life é uma iniciativa sem fins lucrativos localizada no bairro Clube dos Engenheiros, 
+                                em Araruama – RJ. Com apenas 5 anos de existência, já transformou a vida de mais de 100 crianças 
+                                e adolescentes da comunidade, oferecendo um espaço seguro e cheio de oportunidades.
+                            </p>
+                        </div>
+                        
+                        <div class="about-mission">
+                            <h3 class="about-subtitle">Nosso Propósito</h3>
+                            <p class="about-description">
+                                Nosso propósito é claro: preservar a juventude, promover valores e abrir caminhos para um futuro melhor. 
+                                Por meio de atividades como Futebol, Judô e Dança Contemporânea, buscamos desenvolver não apenas 
+                                talentos esportivos e artísticos, mas também disciplina, respeito e união.
+                            </p>
+                        </div>
+                        
+                        <div class="about-schedule">
+                            <h3 class="about-subtitle">Nossa Rotina</h3>
+                            <p class="about-description">
+                                As aulas acontecem duas vezes por semana, sempre às terças e quintas-feiras. E, às quintas, 
+                                oferecemos um jantar especial para todos os alunos — um momento de convivência, cuidado e 
+                                fortalecimento de vínculos.
+                            </p>
+                        </div>
+                        
+                        <div class="about-call">
+                            <h3 class="about-subtitle">Nossa Crença</h3>
+                            <p class="about-description">
+                                O Instituto Life acredita que a transformação social acontece quando nos unimos em prol de um bem maior. 
+                                Por isso, abrimos nossas portas para todos que desejam somar forças e compartilhar amor, tempo ou conhecimento.
+                            </p>
+                            <div class="about-motto">
+                                <h4 class="motto-text">SE VOCÊ PODE, VOCÊ DEVE.</h4>
+                                <p class="motto-description">
+                                    Seja voluntário, parceiro ou apoiador. Juntos, podemos alcançar ainda mais jovens e escrever 
+                                    novas histórias de esperança.
+                                </p>
+                            </div>
+                        </div>
                         <div class="about-values">
                                                     <div class="value-item">
                             <i class="fas fa-heart"></i>
@@ -127,7 +157,32 @@
                     <!-- Futebol Project -->
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="images/futebol.jpg" alt="Projeto de Futebol">
+                            <div class="image-slider" id="futebol-slider">
+                                <div class="slider-container">
+                                    
+                                    <img src="images/Fotos-Futebol/IMG-20250905-WA0308.jpg" alt="Futebol - Prática" class="slider-image">
+                                    <img src="images/Fotos-Futebol/IMG-20250905-WA0309.jpg" alt="Futebol - Treino" class="slider-image">
+                                    <img src="images/Fotos-Futebol/IMG-20250905-WA0310.jpg" alt="Futebol - Jogo" class="slider-image">
+                                    <img src="images/Fotos-Futebol/IMG-20250905-WA0318.jpg" alt="Futebol - Crianças" class="slider-image">
+                                    <img src="images/Fotos-Futebol/IMG-20250905-WA0319.jpg" alt="Futebol - Equipe" class="slider-image">
+                                    <img src="images/Fotos-Futebol/IMG-20250905-WA0320.jpg" alt="Futebol - Atividade" class="slider-image">
+                                    <img src="images/Fotos-Futebol/WhatsApp Image 2025-09-05 at 14.27.17_c1e09c6f.jpg" alt="Futebol - Momento" class="slider-image">
+                                </div>
+                                <div class="slider-controls">
+                                    <button class="slider-btn prev" onclick="changeSlide('futebol-slider', -1)">❮</button>
+                                    <button class="slider-btn next" onclick="changeSlide('futebol-slider', 1)">❯</button>
+                                </div>
+                                <div class="slider-dots">
+                                    <span class="dot active" onclick="currentSlide('futebol-slider', 1)"></span>
+                                    <span class="dot" onclick="currentSlide('futebol-slider', 2)"></span>
+                                    <span class="dot" onclick="currentSlide('futebol-slider', 3)"></span>
+                                    <span class="dot" onclick="currentSlide('futebol-slider', 4)"></span>
+                                    <span class="dot" onclick="currentSlide('futebol-slider', 5)"></span>
+                                    <span class="dot" onclick="currentSlide('futebol-slider', 6)"></span>
+                                    <span class="dot" onclick="currentSlide('futebol-slider', 7)"></span>
+                                    <span class="dot" onclick="currentSlide('futebol-slider', 8)"></span>
+                                </div>
+                            </div>
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">Futebol</h3>
@@ -147,7 +202,36 @@
                     <!-- Judô Project -->
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="images/judo.jpg" alt="Projeto de Judô">
+                            <div class="image-slider" id="judo-slider">
+                                <div class="slider-container">
+                                   
+                                    <img src="images/Fotos-Judo/IMG-20250905-WA0136.jpg" alt="Judô - Prática" class="slider-image">
+                                    <img src="images/Fotos-Judo/IMG-20250905-WA0307.jpg" alt="Judô - Treino" class="slider-image">
+                                    <img src="images/Fotos-Judo/IMG-20250905-WA0311.jpg" alt="Judô - Técnica" class="slider-image">
+                                    <img src="images/Fotos-Judo/IMG-20250905-WA0312.jpg" alt="Judô - Alunos" class="slider-image">
+                                    <img src="images/Fotos-Judo/IMG-20250905-WA0313.jpg" alt="Judô - Aula" class="slider-image">
+                                    <img src="images/Fotos-Judo/IMG-20250905-WA0314.jpg" alt="Judô - Exercício" class="slider-image">
+                                    <img src="images/Fotos-Judo/IMG-20250905-WA0315.jpg" alt="Judô - Movimento" class="slider-image">
+                                    <img src="images/Fotos-Judo/IMG-20250905-WA0316.jpg" alt="Judô - Disciplina" class="slider-image">
+                                    <img src="images/Fotos-Judo/IMG-20250905-WA0317.jpg" alt="Judô - Momento" class="slider-image">
+                                </div>
+                                <div class="slider-controls">
+                                    <button class="slider-btn prev" onclick="changeSlide('judo-slider', -1)">❮</button>
+                                    <button class="slider-btn next" onclick="changeSlide('judo-slider', 1)">❯</button>
+                                </div>
+                                <div class="slider-dots">
+                                    <span class="dot active" onclick="currentSlide('judo-slider', 1)"></span>
+                                    <span class="dot" onclick="currentSlide('judo-slider', 2)"></span>
+                                    <span class="dot" onclick="currentSlide('judo-slider', 3)"></span>
+                                    <span class="dot" onclick="currentSlide('judo-slider', 4)"></span>
+                                    <span class="dot" onclick="currentSlide('judo-slider', 5)"></span>
+                                    <span class="dot" onclick="currentSlide('judo-slider', 6)"></span>
+                                    <span class="dot" onclick="currentSlide('judo-slider', 7)"></span>
+                                    <span class="dot" onclick="currentSlide('judo-slider', 8)"></span>
+                                    <span class="dot" onclick="currentSlide('judo-slider', 9)"></span>
+                                    <span class="dot" onclick="currentSlide('judo-slider', 10)"></span>
+                                </div>
+                            </div>
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">Judô</h3>
